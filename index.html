@@ -218,110 +218,214 @@
             margin-right: 8px;
         }
 
-        /* --- Responsive Styles for Mobile --- */
+        /* Мобильные стили */
         @media screen and (max-width: 768px) {
             body {
-                padding: 5px;
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
             }
 
             .header h1 {
-                font-size: 1.8em;
+                font-size: 1.6em;
+                line-height: 1.2;
             }
 
             .header p {
-                font-size: 1em;
+                font-size: 0.9em;
             }
 
             .table-container {
-                overflow-x: hidden;
+                padding: 0;
             }
 
-            /* Hide the table header */
+            /* Скрываем обычную таблицу на мобильных */
             thead {
                 display: none;
             }
 
-            /* Make table elements behave like blocks */
+            /* Преобразуем таблицу в карточки */
             table, tbody, tr, td {
                 display: block;
             }
 
-            /* Style each row as a card */
             tr {
                 margin-bottom: 20px;
                 border-radius: 15px;
                 overflow: hidden;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
                 border: 1px solid #ddd;
-            }
-            
-            /* Remove default table borders */
-            td {
-                border: none;
-                border-bottom: 1px solid #eee;
-                background: white !important;
-                padding: 12px 15px;
+                background: white;
             }
 
-            /* The first cell (method name) acts as the card header */
+            /* Категории как отдельные элементы */
+            .category-header {
+                margin: 30px 10px 15px 10px;
+                border-radius: 15px;
+                font-size: 14px;
+                padding: 15px;
+                box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            }
+
+            /* Название метода как заголовок карточки */
             .method-name {
                 background: linear-gradient(45deg, #2C3E50, #4A90E2) !important;
                 color: white;
                 font-weight: bold;
                 font-size: 16px;
                 text-align: center !important;
+                padding: 15px;
+                margin: 0;
+                border: none !important;
             }
 
-            /* Style all other cells as label-value pairs */
+            .method-name .emoji {
+                font-size: 20px;
+                margin-right: 8px;
+            }
+
+            /* Остальные ячейки как поля данных */
             td:not(.method-name):not(.category-header) {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                text-align: right !important;
+                padding: 12px 20px;
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+                background: white;
                 font-size: 14px;
             }
 
-            /* The data-label provides the label text */
+            /* Добавляем лейблы через псевдоэлементы */
             td:not(.method-name):not(.category-header)::before {
                 content: attr(data-label);
                 font-weight: bold;
-                text-align: left;
-                margin-right: 10px; /* space between label and value */
                 color: #333;
+                min-width: 120px;
+                text-align: left;
             }
 
-            /* Special handling for insight cells to allow text wrapping */
-            .insight {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left !important;
-            }
-            .insight::before {
-                 margin-bottom: 5px; /* space between label and text */
-            }
-            .insight > * { /* Ensure the text inside wraps */
-                max-width: 100%;
+            /* Значения выравниваем по правому краю */
+            td:not(.method-name):not(.category-header) > * {
+                margin-left: auto;
             }
 
-
-            /* Last cell in a card has no bottom border */
+            /* Убираем последнюю границу */
             td:last-child {
-                border-bottom: 0;
+                border-bottom: none;
             }
 
-            .category-header {
-                font-size: 16px;
-                padding: 15px;
-                border-radius: 15px 15px 0 0;
+            /* Адаптируем рейтинги */
+            .rating {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
+                margin: 0;
+            }
+
+            /* Адаптируем статусы */
+            .status-experimental,
+            .status-developing,
+            .status-established,
+            .status-mystical {
+                font-size: 8px;
+                padding: 3px 6px;
+                white-space: nowrap;
+            }
+
+            /* Адаптируем инсайты */
+            .insight {
+                max-width: none;
+                text-align: right;
+                font-size: 12px;
+                line-height: 1.3;
+            }
+
+            /* Особая обработка для полей с инсайтами */
+            .insight-cell {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .insight-cell::before {
+                margin-bottom: 8px;
+                text-align: left;
+            }
+
+            .insight-cell .insight {
+                text-align: left;
+            }
+
+            /* Адаптируем легенду */
+            .legend {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .legend-item {
+                margin: 8px 0;
+                font-size: 14px;
+            }
+
+            .footer p {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+
+            /* Убираем hover эффекты на мобильных */
+            tr:hover td {
+                background-color: white;
+                transform: none;
             }
         }
 
+        /* Для очень маленьких экранов */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4em;
+            }
+
+            .header p {
+                font-size: 0.8em;
+            }
+
+            td:not(.method-name):not(.category-header) {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            td:not(.method-name):not(.category-header)::before {
+                min-width: 100px;
+                font-size: 12px;
+            }
+
+            .method-name {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            .category-header {
+                margin: 20px 5px 10px 5px;
+                font-size: 12px;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1> МАТРИЦА АРТ-ТЕРАПЕВТИЧЕСКИХ МЕТОДОВ</h1>
+            <h1>🎭 МАТРИЦА АРТ-ТЕРАПЕВТИЧЕСКИХ МЕТОДОВ</h1>
             <p>Комплексный анализ распространенности, проработки и эффективности</p>
         </div>
         
@@ -340,83 +444,83 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="7" class="category-header">️ КЛАССИЧЕСКИЕ МЕТОДЫ (Золотой фонд арт-терапии)</td>
+                        <td colspan="7" class="category-header">🎨 КЛАССИЧЕСКИЕ МЕТОДЫ (Золотой фонд арт-терапии)</td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Изотерапия</strong><br><small>рисование/живопись</small></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🎨</span><strong>Изотерапия</strong><br><small>рисование/живопись</small></td>
                         <td data-label="Распространенность"><div class="rating rating-10">10</div></td>
                         <td data-label="Проработка"><div class="rating rating-9">9</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-established">ЭТАЛОН</span></td>
-                        <td data-label="Инсайт" class="insight"> Король арт-терапии. Архетипическая простота встречается с научной строгостью</td>
-                        <td data-label="Перспективы" class="insight">AI-анализ рисунков, нейроинтерфейсы</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">👑 Король арт-терапии. Архетипическая простота встречается с научной строгостью</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">AI-анализ рисунков, нейроинтерфейсы</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Музыкотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🎵</span><strong>Музыкотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-9">9</div></td>
                         <td data-label="Проработка"><div class="rating rating-9">9</div></td>
                         <td data-label="Эффективность"><div class="rating rating-9">9</div></td>
                         <td data-label="Статус"><span class="status-established">ЗОЛОТО</span></td>
-                        <td data-label="Инсайт" class="insight"> Прямой канал к лимбической системе. Музыка как универсальный код эмоций</td>
-                        <td data-label="Перспективы" class="insight">Персональные AI-композиторы</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎼 Прямой канал к лимбической системе. Музыка как универсальный код эмоций</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Персональные AI-композиторы</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Танцевально-двигательная</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">💃</span><strong>Танцевально-двигательная</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-8">8</div></td>
                         <td data-label="Проработка"><div class="rating rating-8">8</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-established">СТАБИЛЬНО</span></td>
-                        <td data-label="Инсайт" class="insight"> Тело помнит то, что разум забыл. Освобождение через движение</td>
-                        <td data-label="Перспективы" class="insight">Биометрический анализ движений</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌊 Тело помнит то, что разум забыл. Освобождение через движение</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Биометрический анализ движений</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Драматерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🎭</span><strong>Драматерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-7">7</div></td>
                         <td data-label="Проработка"><div class="rating rating-7">7</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-established">ПРОВЕРЕНО</span></td>
-                        <td data-label="Инсайт" class="insight"> Театр как лаборатория души. Проживание ролей = интеграция частей Self</td>
-                        <td data-label="Перспективы" class="insight">VR-театры, цифровые персоны</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎬 Театр как лаборатория души. Проживание ролей = интеграция частей Self</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">VR-театры, цифровые персоны</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Игровая терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🧸</span><strong>Игровая терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-9">9</div></td>
                         <td data-label="Проработка"><div class="rating rating-9">9</div></td>
                         <td data-label="Эффективность"><div class="rating rating-9">9</div></td>
                         <td data-label="Статус"><span class="status-established">ДЕТСКИЙ СТАНДАРТ</span></td>
-                        <td data-label="Инсайт" class="insight"> Естественный язык детской психики. Игра как метафора жизни</td>
-                        <td data-label="Перспективы" class="insight">Терапевтические видеоигры</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎪 Естественный язык детской психики. Игра как метафора жизни</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Терапевтические видеоигры</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji">️</span><strong>Песочная терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🏖️</span><strong>Песочная терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-6">6</div></td>
                         <td data-label="Проработка"><div class="rating rating-7">7</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-established">ЮНГИАНСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight">️ Микрокосм бессознательного. Архетипы материализуются в песочных мирах</td>
-                        <td data-label="Перспективы" class="insight">Интерактивные проекции</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌅 Микрокосм бессознательного. Архетипы материализуются в песочных мирах</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Интерактивные проекции</div></td>
                     </tr>
                     
                     <tr>
-                        <td colspan="7" class="category-header"> СПЕЦИАЛИЗИРОВАННЫЕ МЕТОДЫ (Нишевые направления)</td>
+                        <td colspan="7" class="category-header">📚 СПЕЦИАЛИЗИРОВАННЫЕ МЕТОДЫ (Нишевые направления)</td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Библиотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">📖</span><strong>Библиотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-6">6</div></td>
                         <td data-label="Проработка"><div class="rating rating-7">7</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-developing">РАЗВИВАЕТСЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Слово как заклинание. Чтение чужих историй = переписывание своих</td>
-                        <td data-label="Перспективы" class="insight">AI-персонализированные тексты</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">📝 Слово как заклинание. Чтение чужих историй = переписывание своих</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">AI-персонализированные тексты</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Сказкотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🧚</span><strong>Сказкотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-7">7</div></td>
                         <td data-label="Проработка"><div class="rating rating-6">6</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-developing">АРХЕТИПИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Сказки = древние коды исцеления, зашифрованные в метафорах</td>
-                        <td data-label="Перспективы" class="insight">Интерактивные VR-сказки</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">✨ Сказки = древние коды исцеления, зашифрованные в метафорах</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Интерактивные VR-сказки</div></td>
                     </tr>
                     <tr>
                         <td data-label="МЕТОД" class="method-name"><span class="emoji">⭕</span><strong>Мандалотерапия</strong></td>
@@ -424,106 +528,106 @@
                         <td data-label="Проработка"><div class="rating rating-5">5</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-mystical">МЕДИТАТИВНАЯ</span></td>
-                        <td data-label="Инсайт" class="insight">⭕ Круг как символ целостности. Геометрия души</td>
-                        <td data-label="Перспективы" class="insight">Цифровые мандалы с биофидбеком</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌀 Круг как символ целостности. Геометрия души</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Цифровые мандалы с биофидбеком</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Куклотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🪆</span><strong>Куклотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-5">5</div></td>
                         <td data-label="Проработка"><div class="rating rating-6">6</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-developing">ПРОЕКТИВНАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Проекция на кукол = безопасная дистанция для проработки травм</td>
-                        <td data-label="Перспективы" class="insight">Роботизированные куклы</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎎 Проекция на кукол = безопасная дистанция для проработки травм</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Роботизированные куклы</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Фототерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">📸</span><strong>Фототерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-4">4</div></td>
                         <td data-label="Проработка"><div class="rating rating-5">5</div></td>
                         <td data-label="Эффективность"><div class="rating rating-6">6</div></td>
                         <td data-label="Статус"><span class="status-developing">ЦИФРОВАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Остановленное время. Работа с памятью через визуальные триггеры</td>
-                        <td data-label="Перспективы" class="insight">AI-анализ селфи, терапия через соцсети</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">⏰ Остановленное время. Работа с памятью через визуальные триггеры</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">AI-анализ селфи, терапия через соцсети</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Лепка/Глинотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🏺</span><strong>Лепка/Глинотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-7">7</div></td>
                         <td data-label="Проработка"><div class="rating rating-6">6</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-established">СОМАТИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Глина = праматерия. Лепка = воссоздание себя из хаоса</td>
-                        <td data-label="Перспективы" class="insight">3D-печать терапевтических объектов</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌍 Глина = праматерия. Лепка = воссоздание себя из хаоса</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">3D-печать терапевтических объектов</div></td>
                     </tr>
                     
                     <tr>
                         <td colspan="7" class="category-header">⚡ ИННОВАЦИОННЫЕ МЕТОДЫ (Технологический авангард)</td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>VR/AR-терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🥽</span><strong>VR/AR-терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-2">2</div></td>
                         <td data-label="Проработка"><div class="rating rating-4">4</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-experimental">БУДУЩЕЕ</span></td>
-                        <td data-label="Инсайт" class="insight"> Будущее терапии. Создание безопасных миров для проработки</td>
-                        <td data-label="Перспективы" class="insight">Квантовые скачки в ближайшие 5 лет</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🚀 Будущее терапии. Создание безопасных миров для проработки</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Квантовые скачки в ближайшие 5 лет</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Цифровая арт-терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">💻</span><strong>Цифровая арт-терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-3">3</div></td>
                         <td data-label="Проработка"><div class="rating rating-3">3</div></td>
                         <td data-label="Эффективность"><div class="rating rating-6">6</div></td>
                         <td data-label="Статус"><span class="status-experimental">РАСТЕТ</span></td>
-                        <td data-label="Инсайт" class="insight"> Пиксели как новые мазки кисти. Код как форма творчества</td>
-                        <td data-label="Перспективы" class="insight">NFT-терапия, блокчейн-арт</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎮 Пиксели как новые мазки кисти. Код как форма творчества</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">NFT-терапия, блокчейн-арт</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Видеотерапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🎬</span><strong>Видеотерапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-2">2</div></td>
                         <td data-label="Проработка"><div class="rating rating-3">3</div></td>
                         <td data-label="Эффективность"><div class="rating rating-6">6</div></td>
                         <td data-label="Статус"><span class="status-experimental">НИШЕВАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Монтаж жизни. Режиссура собственной истории</td>
-                        <td data-label="Перспективы" class="insight">TikTok-терапия, микро-видео</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">✂️ Монтаж жизни. Режиссура собственной истории</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">TikTok-терапия, микро-видео</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Голосовая терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🎤</span><strong>Голосовая терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-4">4</div></td>
                         <td data-label="Проработка"><div class="rating rating-5">5</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-developing">СОМАТИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Голос = вибрация души. Освобождение заблокированных звуков</td>
-                        <td data-label="Перспективы" class="insight">AI-анализ голосовых паттернов</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🎵 Голос = вибрация души. Освобождение заблокированных звуков</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">AI-анализ голосовых паттернов</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Кулинарная арт-терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">👨‍🍳</span><strong>Кулинарная арт-терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-2">2</div></td>
                         <td data-label="Проработка"><div class="rating rating-2">2</div></td>
                         <td data-label="Эффективность"><div class="rating rating-6">6</div></td>
                         <td data-label="Статус"><span class="status-experimental">ЭКСПЕРИМЕНТАЛЬНАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Готовка как алхимия. Трансформация ингредиентов = трансформация души</td>
-                        <td data-label="Перспективы" class="insight">Молекулярная гастрономия-терапия</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🔮 Готовка как алхимия. Трансформация ингредиентов = трансформация души</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Молекулярная гастрономия-терапия</div></td>
                     </tr>
                     
                     <tr>
-                        <td colspan="7" class="category-header"> ТРАНСПЕРСОНАЛЬНЫЕ МЕТОДЫ (Мистическое измерение)</td>
+                        <td colspan="7" class="category-header">🔮 ТРАНСПЕРСОНАЛЬНЫЕ МЕТОДЫ (Мистическое измерение)</td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Активное воображение (Юнг)</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🧙</span><strong>Активное воображение (Юнг)</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-4">4</div></td>
                         <td data-label="Проработка"><div class="rating rating-8">8</div></td>
                         <td data-label="Эффективность"><div class="rating rating-8">8</div></td>
                         <td data-label="Статус"><span class="status-mystical">АРХЕТИПИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Диалог с бессознательным. Архетипы становятся собеседниками</td>
-                        <td data-label="Перспективы" class="insight">Нейроинтерфейсы для визуализации</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">💭 Диалог с бессознательным. Архетипы становятся собеседниками</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Нейроинтерфейсы для визуализации</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Шаманская арт-терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">🪘</span><strong>Шаманская арт-терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-1">1</div></td>
                         <td data-label="Проработка"><div class="rating rating-2">2</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-mystical">ДРЕВНЯЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Древнейшая технология исцеления. Работа с духами через образы</td>
-                        <td data-label="Перспективы" class="insight">Интеграция с нейронауками</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌿 Древнейшая технология исцеления. Работа с духами через образы</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Интеграция с нейронауками</div></td>
                     </tr>
                     <tr>
                         <td data-label="МЕТОД" class="method-name"><span class="emoji">⭐</span><strong>Астроарт-терапия</strong></td>
@@ -531,8 +635,8 @@
                         <td data-label="Проработка"><div class="rating rating-1">1</div></td>
                         <td data-label="Эффективность"><div class="rating rating-4">4</div></td>
                         <td data-label="Статус"><span class="status-mystical">ЭЗОТЕРИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight">⭐ Космические циклы как зеркало внутренних процессов</td>
-                        <td data-label="Перспективы" class="insight">Космическая психология для колонистов</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌌 Космические циклы как зеркало внутренних процессов</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Космическая психология для колонистов</div></td>
                     </tr>
                     <tr>
                         <td data-label="МЕТОД" class="method-name"><span class="emoji">⚗️</span><strong>Алхимическая арт-терапия</strong></td>
@@ -540,17 +644,17 @@
                         <td data-label="Проработка"><div class="rating rating-2">2</div></td>
                         <td data-label="Эффективность"><div class="rating rating-6">6</div></td>
                         <td data-label="Статус"><span class="status-mystical">СИМВОЛИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight">⚗️ Nigredo-Albedo-Rubedo: трансформация через символы</td>
-                        <td data-label="Перспективы" class="insight">Квантовая алхимия сознания</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🏺 Nigredo-Albedo-Rubedo: трансформация через символы</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Квантовая алхимия сознания</div></td>
                     </tr>
                     <tr>
-                        <td data-label="МЕТОД" class="method-name"><span class="emoji"></span><strong>Сновидческая арт-терапия</strong></td>
+                        <td data-label="МЕТОД" class="method-name"><span class="emoji">💤</span><strong>Сновидческая арт-терапия</strong></td>
                         <td data-label="Распространенность"><div class="rating rating-2">2</div></td>
                         <td data-label="Проработка"><div class="rating rating-3">3</div></td>
                         <td data-label="Эффективность"><div class="rating rating-7">7</div></td>
                         <td data-label="Статус"><span class="status-mystical">ОНЕЙРИЧЕСКАЯ</span></td>
-                        <td data-label="Инсайт" class="insight"> Онейрическое искусство. Творчество в пограничных состояниях</td>
-                        <td data-label="Перспективы" class="insight">Технологии записи снов</td>
+                        <td data-label="Инсайт" class="insight-cell"><div class="insight">🌙 Онейрическое искусство. Творчество в пограничных состояниях</div></td>
+                        <td data-label="Перспективы" class="insight-cell"><div class="insight">Технологии записи снов</div></td>
                     </tr>
                 </tbody>
             </table>
@@ -579,7 +683,7 @@
                     <span>1-2: Экспериментальный</span>
                 </div>
             </div>
-            <p><strong> Парадокс измерения:</strong> Самые глубокие изменения часто происходят за пределами измеримого. Как оценить степень соприкосновения с тайной?</p>
+            <p><strong>🔮 Парадокс измерения:</strong> Самые глубокие изменения часто происходят за пределами измеримого. Как оценить степень соприкосновения с тайной?</p>
         </div>
     </div>
 </body>
