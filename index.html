@@ -236,14 +236,17 @@
                 overflow-x: hidden;
             }
 
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
+            /* Hide the table header */
             thead {
                 display: none;
             }
 
+            /* Make table elements behave like blocks */
+            table, tbody, tr, td {
+                display: block;
+            }
+
+            /* Style each row as a card */
             tr {
                 margin-bottom: 20px;
                 border-radius: 15px;
@@ -252,55 +255,58 @@
                 border: 1px solid #ddd;
             }
             
+            /* Remove default table borders */
             td {
-                text-align: right !important;
-                padding: 12px 15px;
                 border: none;
                 border-bottom: 1px solid #eee;
-                position: relative;
                 background: white !important;
-                font-size: 14px;
+                padding: 12px 15px;
             }
 
-            td:last-child {
-                border-bottom: 0;
-            }
-
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 15px;
-                font-weight: bold;
-                text-align: left;
-                white-space: nowrap;
-                color: #333;
-            }
-
+            /* The first cell (method name) acts as the card header */
             .method-name {
                 background: linear-gradient(45deg, #2C3E50, #4A90E2) !important;
                 color: white;
                 font-weight: bold;
                 font-size: 16px;
                 text-align: center !important;
-                padding: 15px;
             }
 
-            .method-name::before {
-                content: "";
-            }
-            
-            .rating, .status-experimental, .status-developing, .status-established, .status-mystical {
-                float: right;
+            /* Style all other cells as label-value pairs */
+            td:not(.method-name):not(.category-header) {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right !important;
+                font-size: 14px;
             }
 
+            /* The data-label provides the label text */
+            td:not(.method-name):not(.category-header)::before {
+                content: attr(data-label);
+                font-weight: bold;
+                text-align: left;
+                margin-right: 10px; /* space between label and value */
+                color: #333;
+            }
+
+            /* Special handling for insight cells to allow text wrapping */
             .insight {
+                flex-direction: column;
+                align-items: flex-start;
                 text-align: left !important;
-                padding-top: 35px;
-                padding-bottom: 15px;
             }
-            
             .insight::before {
-                top: 12px;
+                 margin-bottom: 5px; /* space between label and text */
+            }
+            .insight > * { /* Ensure the text inside wraps */
+                max-width: 100%;
+            }
+
+
+            /* Last cell in a card has no bottom border */
+            td:last-child {
+                border-bottom: 0;
             }
 
             .category-header {
