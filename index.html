@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Матрица арт-терапевтических методов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #2C3E50, #4A90E2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        
+        .category-header {
+            background: linear-gradient(45deg, #8A2BE2, #4169E1);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 10px;
+        }
+        
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        tr:hover td {
+            background-color: #f8f9ff;
+            transform: scale(1.02);
+        }
+        
+        .method-name {
+            text-align: left !important;
+            font-weight: 600;
+            background: linear-gradient(90deg, #f8f9ff, white);
+            position: relative;
+            font-size: 12px;
+        }
+        
+        .rating {
+            font-weight: bold;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .rating-10 { background: linear-gradient(45deg, #FF6B6B, #FF8E53); }
+        .rating-9 { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .rating-8 { background: linear-gradient(45deg, #45B7D1, #96CEB4); }
+        .rating-7 { background: linear-gradient(45deg, #F7DC6F, #F39C12); }
+        .rating-6 { background: linear-gradient(45deg, #BB8FCE, #8E44AD); }
+        .rating-5 { background: linear-gradient(45deg, #85C1E9, #5DADE2); }
+        .rating-4 { background: linear-gradient(45deg, #F8C471, #F4D03F); }
+        .rating-3 { background: linear-gradient(45deg, #D7BDE2, #A569BD); }
+        .rating-2 { background: linear-gradient(45deg, #AED6F1, #85C1E9); }
+        .rating-1 { background: linear-gradient(45deg, #FADBD8, #F1948A); }
+        
+        .emoji {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        
+        .insight {
+            font-style: italic;
+            font-size: 10px;
+            color: #666;
+            max-width: 200px;
+        }
+        
+        .status-experimental { 
+            background: linear-gradient(45deg, #FF9A56, #FF6B9D);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .status-developing { 
+            background: linear-gradient(45deg, #4FACFE, #00F2FE);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .status-established { 
+            background: linear-gradient(45deg, #43E97B, #38F9D7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .status-mystical { 
+            background: linear-gradient(45deg, #FA709A, #FEE140);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #2C3E50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> МАТРИЦА АРТ-ТЕРАПЕВТИЧЕСКИХ МЕТОДОВ</h1>
+            <p>Комплексный анализ распространенности, проработки и эффективности</p>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">МЕТОД АРТ-ТЕРАПИИ</th>
+                        <th style="width: 10%;">РАСПРОСТРАНЕННОСТЬ</th>
+                        <th style="width: 10%;">ПРОФ. ПРОРАБОТКА</th>
+                        <th style="width: 10%;">ЭФФЕКТИВНОСТЬ</th>
+                        <th style="width: 12%;">СТАТУС</th>
+                        <th style="width: 25%;">ИНСАЙТ ЭКСПЕРТА</th>
+                        <th style="width: 13%;">ПЕРСПЕКТИВЫ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="category-header">️ КЛАССИЧЕСКИЕ МЕТОДЫ (Золотой фонд арт-терапии)</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Изотерапия</strong><br><small>рисование/живопись</small></td>
+                        <td><div class="rating rating-10">10</div></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-established">ЭТАЛОН</span></td>
+                        <td class="insight"> Король арт-терапии. Архетипическая простота встречается с научной строгостью</td>
+                        <td class="insight">AI-анализ рисунков, нейроинтерфейсы</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Музыкотерапия</strong></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><span class="status-established">ЗОЛОТО</span></td>
+                        <td class="insight"> Прямой канал к лимбической системе. Музыка как универсальный код эмоций</td>
+                        <td class="insight">Персональные AI-композиторы</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Танцевально-двигательная</strong></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-established">СТАБИЛЬНО</span></td>
+                        <td class="insight"> Тело помнит то, что разум забыл. Освобождение через движение</td>
+                        <td class="insight">Биометрический анализ движений</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Драматерапия</strong></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-established">ПРОВЕРЕНО</span></td>
+                        <td class="insight"> Театр как лаборатория души. Проживание ролей = интеграция частей Self</td>
+                        <td class="insight">VR-театры, цифровые персоны</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Игровая терапия</strong></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><div class="rating rating-9">9</div></td>
+                        <td><span class="status-established">ДЕТСКИЙ СТАНДАРТ</span></td>
+                        <td class="insight"> Естественный язык детской психики. Игра как метафора жизни</td>
+                        <td class="insight">Терапевтические видеоигры</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji">️</span><strong>Песочная терапия</strong></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-established">ЮНГИАНСКАЯ</span></td>
+                        <td class="insight">️ Микрокосм бессознательного. Архетипы материализуются в песочных мирах</td>
+                        <td class="insight">Интерактивные проекции</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="7" class="category-header"> СПЕЦИАЛИЗИРОВАННЫЕ МЕТОДЫ (Нишевые направления)</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Библиотерапия</strong></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-developing">РАЗВИВАЕТСЯ</span></td>
+                        <td class="insight"> Слово как заклинание. Чтение чужих историй = переписывание своих</td>
+                        <td class="insight">AI-персонализированные тексты</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Сказкотерапия</strong></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-developing">АРХЕТИПИЧЕСКАЯ</span></td>
+                        <td class="insight"> Сказки = древние коды исцеления, зашифрованные в метафорах</td>
+                        <td class="insight">Интерактивные VR-сказки</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji">⭕</span><strong>Мандалотерапия</strong></td>
+                        <td><div class="rating rating-5">5</div></td>
+                        <td><div class="rating rating-5">5</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-mystical">МЕДИТАТИВНАЯ</span></td>
+                        <td class="insight">⭕ Круг как символ целостности. Геометрия души</td>
+                        <td class="insight">Цифровые мандалы с биофидбеком</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Куклотерапия</strong></td>
+                        <td><div class="rating rating-5">5</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-developing">ПРОЕКТИВНАЯ</span></td>
+                        <td class="insight"> Проекция на кукол = безопасная дистанция для проработки травм</td>
+                        <td class="insight">Роботизированные куклы</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Фототерапия</strong></td>
+                        <td><div class="rating rating-4">4</div></td>
+                        <td><div class="rating rating-5">5</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><span class="status-developing">ЦИФРОВАЯ</span></td>
+                        <td class="insight"> Остановленное время. Работа с памятью через визуальные триггеры</td>
+                        <td class="insight">AI-анализ селфи, терапия через соцсети</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Лепка/Глинотерапия</strong></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-established">СОМАТИЧЕСКАЯ</span></td>
+                        <td class="insight"> Глина = праматерия. Лепка = воссоздание себя из хаоса</td>
+                        <td class="insight">3D-печать терапевтических объектов</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="7" class="category-header">⚡ ИННОВАЦИОННЫЕ МЕТОДЫ (Технологический авангард)</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>VR/AR-терапия</strong></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-4">4</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-experimental">БУДУЩЕЕ</span></td>
+                        <td class="insight"> Будущее терапии. Создание безопасных миров для проработки</td>
+                        <td class="insight">Квантовые скачки в ближайшие 5 лет</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Цифровая арт-терапия</strong></td>
+                        <td><div class="rating rating-3">3</div></td>
+                        <td><div class="rating rating-3">3</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><span class="status-experimental">РАСТЕТ</span></td>
+                        <td class="insight"> Пиксели как новые мазки кисти. Код как форма творчества</td>
+                        <td class="insight">NFT-терапия, блокчейн-арт</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Видеотерапия</strong></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-3">3</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><span class="status-experimental">НИШЕВАЯ</span></td>
+                        <td class="insight"> Монтаж жизни. Режиссура собственной истории</td>
+                        <td class="insight">TikTok-терапия, микро-видео</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Голосовая терапия</strong></td>
+                        <td><div class="rating rating-4">4</div></td>
+                        <td><div class="rating rating-5">5</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-developing">СОМАТИЧЕСКАЯ</span></td>
+                        <td class="insight"> Голос = вибрация души. Освобождение заблокированных звуков</td>
+                        <td class="insight">AI-анализ голосовых паттернов</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Кулинарная арт-терапия</strong></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><span class="status-experimental">ЭКСПЕРИМЕНТАЛЬНАЯ</span></td>
+                        <td class="insight"> Готовка как алхимия. Трансформация ингредиентов = трансформация души</td>
+                        <td class="insight">Молекулярная гастрономия-терапия</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="7" class="category-header"> ТРАНСПЕРСОНАЛЬНЫЕ МЕТОДЫ (Мистическое измерение)</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Активное воображение (Юнг)</strong></td>
+                        <td><div class="rating rating-4">4</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><div class="rating rating-8">8</div></td>
+                        <td><span class="status-mystical">АРХЕТИПИЧЕСКАЯ</span></td>
+                        <td class="insight"> Диалог с бессознательным. Архетипы становятся собеседниками</td>
+                        <td class="insight">Нейроинтерфейсы для визуализации</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Шаманская арт-терапия</strong></td>
+                        <td><div class="rating rating-1">1</div></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-mystical">ДРЕВНЯЯ</span></td>
+                        <td class="insight"> Древнейшая технология исцеления. Работа с духами через образы</td>
+                        <td class="insight">Интеграция с нейронауками</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji">⭐</span><strong>Астроарт-терапия</strong></td>
+                        <td><div class="rating rating-1">1</div></td>
+                        <td><div class="rating rating-1">1</div></td>
+                        <td><div class="rating rating-4">4</div></td>
+                        <td><span class="status-mystical">ЭЗОТЕРИЧЕСКАЯ</span></td>
+                        <td class="insight">⭐ Космические циклы как зеркало внутренних процессов</td>
+                        <td class="insight">Космическая психология для колонистов</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji">⚗️</span><strong>Алхимическая арт-терапия</strong></td>
+                        <td><div class="rating rating-1">1</div></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-6">6</div></td>
+                        <td><span class="status-mystical">СИМВОЛИЧЕСКАЯ</span></td>
+                        <td class="insight">⚗️ Nigredo-Albedo-Rubedo: трансформация через символы</td>
+                        <td class="insight">Квантовая алхимия сознания</td>
+                    </tr>
+                    <tr>
+                        <td class="method-name"><span class="emoji"></span><strong>Сновидческая арт-терапия</strong></td>
+                        <td><div class="rating rating-2">2</div></td>
+                        <td><div class="rating rating-3">3</div></td>
+                        <td><div class="rating rating-7">7</div></td>
+                        <td><span class="status-mystical">ОНЕЙРИЧЕСКАЯ</span></td>
+                        <td class="insight"> Онейрическое искусство. Творчество в пограничных состояниях</td>
+                        <td class="insight">Технологии записи снов</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color rating-10"></div>
+                    <span>9-10: Мировой стандарт</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rating-8"></div>
+                    <span>7-8: Высокий уровень</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rating-6"></div>
+                    <span>5-6: Средний уровень</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rating-3"></div>
+                    <span>3-4: Развивающийся</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rating-1"></div>
+                    <span>1-2: Экспериментальный</span>
+                </div>
+            </div>
+            <p><strong> Парадокс измерения:</strong> Самые глубокие изменения часто происходят за пределами измеримого. Как оценить степень соприкосновения с тайной?</p>
+        </div>
+    </div>
+</body>
+</html>
